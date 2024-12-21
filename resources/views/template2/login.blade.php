@@ -33,6 +33,7 @@
         }
         .form-group {
             margin-bottom: 15px;
+            position: relative;
         }
         .form-group label {
             font-weight: bold;
@@ -52,6 +53,14 @@
             border-color: #007BFF;
             box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
         }
+        .toggle-password {
+            position: absolute;
+            top: 35px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #555;
+        }
         .login-btn {
             background: #007BFF;
             color: #fff;
@@ -65,38 +74,61 @@
         .login-btn:hover {
             background: #0056b3;
         }
-        .forgot-password {
+        .additional-links {
             text-align: center;
             margin-top: 10px;
-        }
-        .forgot-password a {
-            color: #007BFF;
-            text-decoration: none;
             font-size: 14px;
         }
-        .forgot-password a:hover {
+        .additional-links a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .additional-links a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Page de connexion</h2>
         <form action="/login" method="POST">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+                <span class="toggle-password" onclick="togglePassword()">
+                    <i id="password-icon" class="fas fa-eye-slash"></i>
+                </span>
             </div>
-            <button type="submit" class="login-btn">Login</button>
+            <button type="submit" class="login-btn">Connexion</button>
         </form>
-        <div class="forgot-password">
-            <a href="#">Forgot your password?</a>
+        <div class="additional-links">
+            <p><a href="#">Mot de passe oublié ?</a></p>
+            <p>Vous n'avez pas de compte ? <a href="{{ url('/register') }}">S'inscrire</a></p>
         </div>
     </div>
+
+    <!-- Add Font Awesome for icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const passwordIcon = document.getElementById('password-icon');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordIcon.classList.remove('fa-eye-slash');
+                passwordIcon.classList.add('fa-eye');
+            } else {
+                passwordField.type = 'password';
+                passwordIcon.classList.remove('fa-eye');
+                passwordIcon.classList.add('fa-eye-slash');
+            }
+        }
+    </script>
 </body>
 </html>
-
